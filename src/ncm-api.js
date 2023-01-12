@@ -7,6 +7,8 @@ const convertFile = (filePath) => {
         let [musicBuffer, imageBuffer, metaObject] = parseNcmFile(fs.readFileSync(filePath))
         const newName = filePath.replace(/\.ncm$/, '.mp3')
         fs.writeFileSync(newName, musicBuffer)
+        // 发现音乐部分的数据真的是啥都没有，就手动增加一些音乐的描述信息，把音乐封面文件也写入进去
+        // 这样很多的播放器就可以自动生成对应的ui了
         const options = {
             title: metaObject.musicName,
             album: metaObject.album,
